@@ -115,4 +115,16 @@
             
         }
     }
+
+    .--eyeDiv{
+
+        position: relative;
+
+        img{
+            position: absolute;
+            top: 25%;
+            right: 0;
+            height: 50%;
+        }
+    }
 }

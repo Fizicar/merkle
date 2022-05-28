@@ -130,4 +130,15 @@
   background-color: linear-gradient(85deg, #359a74 0%, #00830f 100%);
   color: #fff;
 }
+
+.registrationForm .--eyeDiv {
+  position: relative;
+}
+
+.registrationForm .--eyeDiv img {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  height: 50%;
+}
 /*# sourceMappingURL=RegistrationForm.css.map */

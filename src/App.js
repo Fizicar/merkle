@@ -1,4 +1,6 @@
 import './App.css';
+import eyeClosed from './Styles/images/ico-eye-closed.svg'
+import eyeOpened from './Styles/images/ico-eye.svg'
 import './Styles/RegistrationForm.css'
 import React, {useState, useRef, useEffect} from 'react'
 import axios from 'axios';
@@ -10,8 +12,7 @@ function App() {
   const [formData, getFormLabels] = useState(null)
 
   const[goodPassword, checkPassword] = useState(true)
-  let displayPassword = false
-  
+  const[displayPassword, checkdisplayPassword] = useState(false)
 
   let formSend = false
   let requestData = {
@@ -30,11 +31,6 @@ function App() {
     
   }, [])
 
-  useEffect(() => {
-    console.log("GoodPassword")
-    
-  }, [goodPassword])
-
   
   const getFormData = () => {
     axios.get("http://localhost:3000/registrationLabels")
@@ -47,6 +43,14 @@ function App() {
 
   if (isLoading) {
     return <div className="App">Loading...</div>;
+  }
+
+  function changeViewPassword(){
+    if(displayPassword){
+      checkdisplayPassword(false)
+    }else{
+      checkdisplayPassword(true)
+    }
   }
 
   function checkPasswordStrenght(event){
@@ -150,7 +154,10 @@ function App() {
           </div>
 
           <div className='--inputContainer'>
-          <input ref={requestData.password} className={'__input ' + (goodPassword ? 'goodPassword' : 'badPassword')} type="password"  placeholder={formData.Password.FieldLabel} required onChange={checkPasswordStrenght}/>
+            <div className='--eyeDiv'>
+          <input ref={requestData.password} className={'__input ' + (goodPassword ? 'goodPassword' : 'badPassword')} type={(displayPassword ? "text" : "password")}  placeholder={formData.Password.FieldLabel} required onChange={checkPasswordStrenght}/>
+            <img className='eyeImg' src={(displayPassword ? eyeOpened : eyeClosed)} onClick={changeViewPassword}/>
+            </div>
             <span className='__passwordInstructions'>
               -{formData.Password.LetterRule}<br></br>
               -{formData.Password.NumberRule}<br></br>
