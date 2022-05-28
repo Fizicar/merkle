@@ -57,6 +57,7 @@
             padding: 10px;
             font-size: 1rem;
             padding-right: 0;
+            box-sizing: border-box;
 
         }
 
@@ -123,7 +124,7 @@
         img{
             position: absolute;
             top: 25%;
-            right: 0;
+            right: 10px;
             height: 50%;
         }
     }

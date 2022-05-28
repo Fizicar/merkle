@@ -33,6 +33,7 @@ function App() {
 
   
   const getFormData = () => {
+    
     axios.get("http://localhost:3000/registrationLabels")
         .then(response => {
           getFormLabels(response.data)
@@ -40,11 +41,7 @@ function App() {
         })
         .catch(error => console.error('Error: ' . error))
   }
-
-  if (isLoading) {
-    return <div className="App">Loading...</div>;
-  }
-
+  
   function changeViewPassword(){
     if(displayPassword){
       checkdisplayPassword(false)
@@ -74,7 +71,6 @@ function App() {
   }
 
   function getSalutation(event){
-
     requestData.salutation =  event.target.getAttribute('data-name')
 
   }
@@ -106,19 +102,19 @@ function App() {
 
     const axiosRequestData = requestCleanUp();
     
-    console.log(axiosRequestData);
     axios.post('http://localhost:3000/createUser', axiosRequestData)
-        .then(response => {
-          if(response.statusText == "Created"){
-            
-            formSend = true
-            alert('User Succesfully Created:')
-          }else{
-            formSend = false
-          }
-          
-          console.log(formSend)
-        });
+      .then(response => {
+        if(response.statusText == "Created"){
+          formSend = true
+          alert('User Succesfully Created:')
+        }else{
+          formSend = false
+        }
+    });
+  }
+
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
   }
 
   return (
