@@ -1,0 +1,67 @@
+.registrationForm{
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-flow: column;
+    height: 100%;
+    min-height: 100vh;
+    max-width: 800px;
+    margin: auto;
+    height: 100%;
+    overflow: hidden;
+
+    .--title{
+        font-size: 3rem;
+        text-align: left;
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .--introduction{
+        font-size: 1.1rem;
+        text-align: left;
+    }
+
+    .--firstCheckboxContainer{
+        margin: 10px 0;
+    }
+
+    .--inputContainer{
+        width: 100%;
+        margin-bottom: 15px;
+
+        input{
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+
+        }
+    }
+
+    .__passwordInstructions{
+        width: 100%;
+        text-align: left;
+        display: block;
+    }
+
+    .--SecondCheckboxContainer{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-flow: column;
+
+        label{
+            margin-top: 10px;
+        }
+    }
+
+    .--submitButton{
+        background: #d2e143;
+        margin-top: 15px;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+
+    }
+}
