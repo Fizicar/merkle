@@ -3,16 +3,34 @@ import './Styles/RegistrationForm.css'
 import React, {useState, useRef, useEffect} from 'react'
 import axios from 'axios';
 import jsonData from './json-server/db.json';
+import userEvent from '@testing-library/user-event';
 
 function App() {  
-  const [isLoading, setLoading] = useState(true);
+  
+  const [isLoading, setLoading] = useState(true)
   const [formData, getFormLabels] = useState(null)
+
+  let displayPassword = false
+  let goodPassword = false
+
+  let formSend = false
+  let requestData = {
+    email: useRef(),
+    firstName: useRef(),
+    lastName: useRef(),
+    newsLetter: useRef(),
+    password: useRef(),
+    privacyPolicy: useRef(),
+    terms: useRef(),
+    salutation: useRef(),
+  }
 
   useEffect(() => {
     getFormData()
     
   }, [])
 
+  
   const getFormData = () => {
     axios.get("http://localhost:3000/registrationLabels")
         .then(response => {
@@ -26,14 +44,71 @@ function App() {
     return <div className="App">Loading...</div>;
   }
 
-  function sendFormData(){
-    alert("we are sendon the data")
+  function checkPasswordStrenght(event){
+
+    let currentPassword = event.target.value
+
+    let spChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+    if(spChars.test(currentPassword)){
+      goodPassword = false;
+    }
+
+    if(/[a-z][A-Z]/.test(currentPassword)){
+      goodPassword = true;
+    }
+
+  }
+
+  function getSalutation(event){
+
+    requestData.salutation =  event.target.getAttribute('data-name')
+
+  }
+
+  function checkBoxCheck(checkbox){
+    if(checkbox == 'on') return true
+    
+    return false
+  }
+
+  function requestCleanUp(){
+    let cleanRequestData = {
+      email: requestData.email.current.value,
+      firstName: requestData.firstName.current.value,
+      lastName: requestData.lastName.current.value,
+      newsletter: checkBoxCheck(requestData.newsLetter.current.value),
+      password: requestData.password.current.value,
+      privacyPolicy: checkBoxCheck(requestData.privacyPolicy.current.value),
+      terms: checkBoxCheck(requestData.terms.current.value),
+      salutation: requestData.salutation,
+    }
+
+    return cleanRequestData
+  }
+
+  
+  function sendFormData(e){
+    e.preventDefault()
+
+    const axiosRequestData = requestCleanUp();
+    
+    axios.post('http://localhost:3000/createUser', axiosRequestData)
+        .then(response => {
+          if(response.statusText == "Created"){
+            
+            formSend = true
+          }else{
+            formSend = false
+          }
+          console.log(formSend)
+        });
   }
 
   return (
     <>
     <div className="App">
-      <div className='registrationForm'>
+      <form onSubmit={sendFormData} className='registrationForm'>
           <div className='--title'>
               {formData.RegistrationTitle}
           </div>
@@ -45,25 +120,25 @@ function App() {
           <div className='--firstCheckboxContainer'>
 
             {formData.SalutationSource.map((value, index) => {
-              return <label><input name="action" className='__checkbox_container' type="radio"/> {value.Name} </label>
+              return <label><input ref={requestData.salutation} data-name={value.Name} name="action" className='__checkbox_container' type="radio" onChange={getSalutation}/> {value.Name} </label>
             })}
             
           </div>
 
           <div className='--inputContainer'>
-            <input className='__input' type="text"  placeholder={formData.FirstName.FieldLabel} { ...formData.FirstName.IsRequired && "required"}/>
+            <input ref={requestData.firstName} className='__input' type="text"  placeholder={formData.FirstName.FieldLabel}/>
           </div>
 
           <div className='--inputContainer'>
-          <input className='__input' type="text"  placeholder={formData.LastName.FieldLabel} { ...formData.LastName.IsRequired && "required"}/>
+          <input ref={requestData.lastName} className='__input' type="text"  placeholder={formData.LastName.FieldLabel} required/>
           </div>
 
           <div className='--inputContainer'>
-          <input className='__input' type="text"  placeholder={formData.Email.FieldLabel} { ...formData.Email.IsRequired && "required"}/>
+          <input ref={requestData.email} className='__input' type="email"  placeholder={formData.Email.FieldLabel} required/>
           </div>
 
           <div className='--inputContainer'>
-          <input className='__input' type="text"  placeholder={formData.Password.FieldLabel} { ...formData.Password.IsRequired && "required"}/>
+          <input ref={requestData.password} className='__input' type="password"  placeholder={formData.Password.FieldLabel} required onChange={checkPasswordStrenght}/>
             <span className='__passwordInstructions'>
               -{formData.Password.LetterRule}<br></br>
               -{formData.Password.NumberRule}<br></br>
@@ -73,17 +148,17 @@ function App() {
           </div>
           
           <div className='--SecondCheckboxContainer'>
-            <label><input className='__checkbox_container' type="checkbox"/> {formData.Newsletter.FieldLabel} </label>
+            <label><input required ref={requestData.newsLetter} className='__checkbox_container' type="checkbox"/> {formData.Newsletter.FieldLabel} </label>
 
-            <label><input className='__checkbox_container' type="checkbox"/> {formData.TermsAndConditions.FieldLabel} </label>
+            <label><input required ref={requestData.terms} className='__checkbox_container' type="checkbox"/> {formData.TermsAndConditions.FieldLabel} </label>
 
-            <label><input className='__checkbox_container' type="checkbox"/> {formData.PrivacyPolicy.FieldLabel} </label>
+            <label><input required ref={requestData.privacyPolicy} className='__checkbox_container' type="checkbox"/> {formData.PrivacyPolicy.FieldLabel} </label>
           </div>
 
-          <button onClick={sendFormData} className='--submitButton' type='submit'>{formData.RegistrationSaveButtonLabel}</button>
+          <button className='--submitButton' type='submit'>{formData.RegistrationSaveButtonLabel}</button>
 
           <p className='normalText'> {formData.RegistrationLoginLinkLabel} </p>
-      </div>
+      </form>
     </div>
     </>
   );
