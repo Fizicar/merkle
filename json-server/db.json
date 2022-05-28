@@ -84,9 +84,9 @@
     "firstName": "Pavle",
     "lastName": "Srdic",
     "newsletter": true,
-    "password": "123123",
+    "password": "asdasd@@aAAA",
     "privacyPolicy": true,
     "terms": true,
-    "salutation": "Frau"
+    "salutation": "mr"
   }
 }

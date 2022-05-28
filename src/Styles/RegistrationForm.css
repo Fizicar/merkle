@@ -1,4 +1,16 @@
+@font-face {
+  font-family: NationalMedium;
+  src: url("fonts/National2Web-Medium.woff");
+}
+
+@font-face {
+  font-family: NationalRegular;
+  src: url("fonts/National2Web-Regular.woff");
+}
+
 .registrationForm {
+  font-size: 16px;
+  font-family: NationalRegular;
   padding: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -22,48 +34,65 @@
 }
 
 .registrationForm .--title {
+  font-family: NationalMedium;
   font-size: 3rem;
   text-align: left;
   font-weight: 700;
   width: 100%;
+  margin-bottom: 2rem;
 }
 
 .registrationForm .--introduction {
   font-size: 1.1rem;
   text-align: left;
+  margin-bottom: 3rem;
 }
 
 .registrationForm .--firstCheckboxContainer {
   margin: 10px 0;
 }
 
+.registrationForm .--firstCheckboxContainer span {
+  font-weight: 600;
+  display: block;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
 .registrationForm .--inputContainer {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
 .registrationForm .--inputContainer input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
+  padding-right: 0;
 }
 
 .registrationForm .--inputContainer .badPassword {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
 .registrationForm .--inputContainer .badPassword:not([value=""]):not(:focus):invalid {
-  border: 2px solid #767676;
+  border: 1px solid #767676;
 }
 
 .registrationForm .--inputContainer .goodPassword {
-  border: 1px solid green !important;
+  border: 1px solid green;
+}
+
+.registrationForm .--inputContainer .goodPassword:not([value=""]):not(:focus):invalid {
+  border: 1px solid #767676;
 }
 
 .registrationForm .__passwordInstructions {
   width: 100%;
   text-align: left;
   display: block;
+  color: #8d8c8c;
+  font-size: 0.9rem;
 }
 
 .registrationForm .--SecondCheckboxContainer {
@@ -92,5 +121,13 @@
   border: none;
   padding: 15px 30px;
   font-size: 1.2rem;
+  -webkit-transition: background-color 2s ease-out;
+  transition: background-color 2s ease-out;
+}
+
+.registrationForm .--submitButton:hover {
+  background: #00830f;
+  background-color: linear-gradient(85deg, #359a74 0%, #00830f 100%);
+  color: #fff;
 }
 /*# sourceMappingURL=RegistrationForm.css.map */

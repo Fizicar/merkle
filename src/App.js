@@ -102,11 +102,13 @@ function App() {
 
     const axiosRequestData = requestCleanUp();
     
+    console.log(axiosRequestData);
     axios.post('http://localhost:3000/createUser', axiosRequestData)
         .then(response => {
           if(response.statusText == "Created"){
             
             formSend = true
+            alert('User Succesfully Created:')
           }else{
             formSend = false
           }
@@ -128,15 +130,15 @@ function App() {
           </div>
 
           <div className='--firstCheckboxContainer'>
-
+            <span>Anrede</span>
             {formData.SalutationSource.map((value, index) => {
-              return <label><input ref={requestData.salutation} data-name={value.Name} name="action" className='__checkbox_container' type="radio" onChange={getSalutation}/> {value.Name} </label>
+              return <label><input required ref={requestData.salutation} data-name={value.ID} name="action" className='__checkbox_container' type="radio" onChange={getSalutation}/> {value.Name} </label>
             })}
             
           </div>
 
           <div className='--inputContainer'>
-            <input ref={requestData.firstName} className='__input' type="text"  placeholder={formData.FirstName.FieldLabel}/>
+            <input ref={requestData.firstName} className='__input' type="text"  placeholder={formData.FirstName.FieldLabel} required/>
           </div>
 
           <div className='--inputContainer'>
@@ -158,7 +160,7 @@ function App() {
           </div>
           
           <div className='--SecondCheckboxContainer'>
-            <label><input required ref={requestData.newsLetter} className='__checkbox_container' type="checkbox"/> {formData.Newsletter.FieldLabel} </label>
+            <label><input ref={requestData.newsLetter} className='__checkbox_container' type="checkbox"/> {formData.Newsletter.FieldLabel} </label>
 
             <label><input required ref={requestData.terms} className='__checkbox_container' type="checkbox"/> {formData.TermsAndConditions.FieldLabel} </label>
 

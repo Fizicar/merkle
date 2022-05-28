@@ -1,4 +1,15 @@
+@font-face {
+    font-family: NationalMedium;
+    src: url("fonts/National2Web-Medium.woff");
+};
+
+@font-face {
+    font-family: NationalRegular;
+    src: url("fonts/National2Web-Regular.woff");
+}
 .registrationForm{
+    font-size: 16px;
+    font-family: NationalRegular;
     padding: 15px;
     display: flex;
     justify-content: center;
@@ -12,42 +23,57 @@
     overflow: hidden;
 
     .--title{
+        font-family: NationalMedium;
         font-size: 3rem;
         text-align: left;
         font-weight: 700;
         width: 100%;
+        margin-bottom: 2rem;
     }
 
     .--introduction{
         font-size: 1.1rem;
         text-align: left;
+        margin-bottom: 3rem;
     }
 
     .--firstCheckboxContainer{
         margin: 10px 0;
+
+        span{
+            font-weight: 600;
+            display: block;
+            text-align: left;
+            font-size: 0.8rem;
+        }
     }
 
     .--inputContainer{
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 1.5rem;
 
         input{
             width: 100%;
             padding: 10px;
             font-size: 1rem;
+            padding-right: 0;
 
         }
 
         .badPassword{
-            border: 2px solid red;
+            border: 1px solid red;
 
             &:not([value=""]):not(:focus):invalid{
-                border: 2px solid  rgb(118, 118, 118) ;
+                border: 1px solid  rgb(118, 118, 118) ;
             }
         }
 
         .goodPassword{
-            border: 1px solid green !important;
+            border: 1px solid green;
+
+            &:not([value=""]):not(:focus):invalid{
+                border: 1px solid  rgb(118, 118, 118) ;
+            }
         }
     }
 
@@ -55,6 +81,8 @@
         width: 100%;
         text-align: left;
         display: block;
+        color: rgb(141, 140, 140);
+        font-size: 0.9rem;
     }
 
     .--SecondCheckboxContainer{
@@ -74,6 +102,17 @@
         border: none;
         padding: 15px 30px;
         font-size: 1.2rem;
+        -webkit-transition: background-color 2s ease-out;
+        -moz-transition: background-color 2s ease-out;
+        -o-transition: background-color 2s ease-out;
+        transition: background-color 2s ease-out;
 
+        &:hover{
+            background: rgba(0,131,15,1);
+            background-color: linear-gradient(85deg, rgba(53,154,116,1) 0%, rgba(0,131,15,1) 100%);
+            color: #fff;
+            
+            
+        }
     }
 }
