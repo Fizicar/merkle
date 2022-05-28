@@ -37,6 +37,18 @@
             font-size: 1rem;
 
         }
+
+        .badPassword{
+            border: 2px solid red;
+
+            &:not([value=""]):not(:focus):invalid{
+                border: 2px solid  rgb(118, 118, 118) ;
+            }
+        }
+
+        .goodPassword{
+            border: 1px solid green !important;
+        }
     }
 
     .__passwordInstructions{

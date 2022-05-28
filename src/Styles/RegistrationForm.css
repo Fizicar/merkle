@@ -48,6 +48,18 @@
   font-size: 1rem;
 }
 
+.registrationForm .--inputContainer .badPassword {
+  border: 2px solid red;
+}
+
+.registrationForm .--inputContainer .badPassword:not([value=""]):not(:focus):invalid {
+  border: 2px solid #767676;
+}
+
+.registrationForm .--inputContainer .goodPassword {
+  border: 1px solid green !important;
+}
+
 .registrationForm .__passwordInstructions {
   width: 100%;
   text-align: left;

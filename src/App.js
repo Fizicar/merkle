@@ -2,16 +2,16 @@ import './App.css';
 import './Styles/RegistrationForm.css'
 import React, {useState, useRef, useEffect} from 'react'
 import axios from 'axios';
-import jsonData from './json-server/db.json';
-import userEvent from '@testing-library/user-event';
+
 
 function App() {  
   
   const [isLoading, setLoading] = useState(true)
   const [formData, getFormLabels] = useState(null)
 
+  const[goodPassword, checkPassword] = useState(true)
   let displayPassword = false
-  let goodPassword = false
+  
 
   let formSend = false
   let requestData = {
@@ -29,6 +29,11 @@ function App() {
     getFormData()
     
   }, [])
+
+  useEffect(() => {
+    console.log("GoodPassword")
+    
+  }, [goodPassword])
 
   
   const getFormData = () => {
@@ -51,13 +56,17 @@ function App() {
     let spChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
     if(spChars.test(currentPassword)){
-      goodPassword = false;
+      checkPassword(false);
+    }
+
+    if(currentPassword.length <= 8){
+      checkPassword(false);
     }
 
     if(/[a-z][A-Z]/.test(currentPassword)){
-      goodPassword = true;
+      checkPassword(true);
     }
-
+    
   }
 
   function getSalutation(event){
@@ -101,6 +110,7 @@ function App() {
           }else{
             formSend = false
           }
+          
           console.log(formSend)
         });
   }
@@ -138,7 +148,7 @@ function App() {
           </div>
 
           <div className='--inputContainer'>
-          <input ref={requestData.password} className='__input' type="password"  placeholder={formData.Password.FieldLabel} required onChange={checkPasswordStrenght}/>
+          <input ref={requestData.password} className={'__input ' + (goodPassword ? 'goodPassword' : 'badPassword')} type="password"  placeholder={formData.Password.FieldLabel} required onChange={checkPasswordStrenght}/>
             <span className='__passwordInstructions'>
               -{formData.Password.LetterRule}<br></br>
               -{formData.Password.NumberRule}<br></br>
